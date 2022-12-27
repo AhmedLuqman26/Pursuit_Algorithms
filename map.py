@@ -92,7 +92,7 @@ for i in range(0,12):
     for j in range(0,12):
 
         grid[i].append('.')
-
+'''
 grid[2][2] = 'X'
 grid[2][3] = 'X'
 grid[2][3] = 'X'
@@ -137,7 +137,7 @@ grid[10][5] = "X"
 grid[10][6] = "X"
 grid[10][7] = "X"
 grid[10][8] = "X"
-'''
+
 
 pursuer1 = [0,0]
 pursuer2 = [0,11]
@@ -233,43 +233,29 @@ def Move_pursuer(grid,curr_pos, tag, joint_info, capture_info):
         d6p = joint_info["b"+"_"+"1"]
         d7p = joint_info["b"+"_"+"2"]
     
+    '''
     if d1e <= d2e:
         target = evader1
     else:
         target = evader2
 
     '''
-    score1 = d1e - abs(d6p + d4p)*(d3p)
-    score2 = d2e - abs(d7p + d5p)*(d3p)
+    score1 = d1e - (d6p + d4p)*(d3p)
+    score2 = d2e - (d7p + d5p)*(d3p)
+   
+    if score1 <= score2:
+        target = evader1
+    else:
+        target = evader2
 
-    print(score1)
-    print(score2)
+    if e1_caught == True:
+
+        target = evader2
     
-    if d1e == 1:
-       
-        grid[curr_pos[0]][curr_pos[1]] = "."
-        return(evader1)
+    if e2_caught == True:
+
+        target = evader1
     
-    elif d2e == 1: 
-       
-        grid[curr_pos[0]][curr_pos[1]] = "."
-        return(evader2)
-    
-    else:   
-
-        if score1 <= score2:
-            target = evader1
-        else:
-            target = evader2
-
-        if e1_caught == True:
-
-            target = evader2
-        
-        if e2_caught == True:
-
-            target = evader1
-    '''
     c1 = curr_pos
     c2 = curr_pos
     c3 = curr_pos
@@ -448,7 +434,7 @@ while All_caught == False:
             joint_info["c_1"] = breadth_first_search(grid, tuple(pursuer3), tuple(evader1))
             joint_info["c_2"] = breadth_first_search(grid, tuple(pursuer3), tuple(evader2))
             pursuer3 = Move_pursuer(grid, pursuer3, "c", joint_info, 0)
-            print(f"this dumbass {pursuer3}")
+         
             grid[pursuer3[0]][pursuer3[1]] = "c"
 
             for i in range(0,len(grid)):
